@@ -125,6 +125,8 @@ impl CompileCmd {
             .type_attribute(".ibc.core.commitment.v1.MerklePrefix", attrs_serde)
             .type_attribute(".ibc.core.commitment.v1.MerklePrefix", attrs_jsonschema)
             .field_attribute(".ibc.core.commitment.v1.MerklePrefix.key_prefix", attrs_base64)
+            .type_attribute(".ibc.core.commitment.v1.MerklePrefix", attrs_serde)
+            .type_attribute(".ibc.core.commitment.v1.MerklePrefix", attrs_jsonschema)
 
             .type_attribute(".ibc.core.channel.v1.Channel", attrs_serde)
             .type_attribute(".ibc.core.channel.v1.Channel", attrs_jsonschema)
@@ -147,6 +149,9 @@ impl CompileCmd {
             .type_attribute(".ics23.InnerOp", attrs_jsonschema)
             .field_attribute(".ics23.InnerOp.prefix", attrs_base64)
             .field_attribute(".ics23.InnerOp.suffix", attrs_base64)
+
+            .type_attribute(".ics23.InnerOp", attrs_serde_eq)
+            .type_attribute(".ics23.InnerOp", attrs_jsonschema)
 
             .type_attribute(".ics23.ProofSpec", attrs_serde_eq)
             .type_attribute(".ics23.ProofSpec", attrs_jsonschema)
