@@ -171,14 +171,14 @@ pub mod ibc {
                 include!("prost/ibc.lightclients.localhost.v1.rs");
             }
         }
-        pub mod solomachine {
-            pub mod v1 {
-                include!("prost/ibc.lightclients.solomachine.v1.rs");
-            }
-        }
         pub mod tendermint {
             pub mod v1 {
                 include!("prost/ibc.lightclients.tendermint.v1.rs");
+            }
+        }
+        pub mod wasm {
+            pub mod v1 {
+                include!("prost/ibc.lightclients.wasm.v1.rs");
             }
         }
     }
