@@ -7,20 +7,16 @@ pub struct ClientState {
     pub code_id: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag = "3")]
     pub latest_height: ::core::option::Option<super::super::super::core::client::v1::Height>,
-    #[prost(message, repeated, tag = "4")]
-    pub proof_specs: ::prost::alloc::vec::Vec<super::super::super::super::ics23::ProofSpec>,
 }
 /// Wasm light client's ConsensusState
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsensusState {
     #[prost(bytes = "vec", tag = "1")]
     pub data: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "2")]
-    pub code_id: ::prost::alloc::vec::Vec<u8>,
     /// timestamp that corresponds to the block height in which the ConsensusState
     /// was stored.
-    #[prost(uint64, tag = "3")]
-    pub timestamp: u64,
+    #[prost(message, optional, tag = "3")]
+    pub timestamp: ::core::option::Option<::prost_types::Timestamp>,
     /// commitment root (i.e app hash)
     #[prost(message, optional, tag = "4")]
     pub root: ::core::option::Option<super::super::super::core::commitment::v1::MerkleRoot>,

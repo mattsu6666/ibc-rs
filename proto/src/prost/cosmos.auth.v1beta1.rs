@@ -46,6 +46,27 @@ pub struct GenesisState {
     #[prost(message, repeated, tag = "2")]
     pub accounts: ::prost::alloc::vec::Vec<::prost_types::Any>,
 }
+/// QueryAccountsRequest is the request type for the Query/Accounts RPC method.
+///
+/// Since: cosmos-sdk 0.43
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryAccountsRequest {
+    /// pagination defines an optional pagination for the request.
+    #[prost(message, optional, tag = "1")]
+    pub pagination: ::core::option::Option<super::super::base::query::v1beta1::PageRequest>,
+}
+/// QueryAccountsResponse is the response type for the Query/Accounts RPC method.
+///
+/// Since: cosmos-sdk 0.43
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryAccountsResponse {
+    /// accounts are the existing accounts
+    #[prost(message, repeated, tag = "1")]
+    pub accounts: ::prost::alloc::vec::Vec<::prost_types::Any>,
+    /// pagination defines the pagination in the response.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<super::super::base::query::v1beta1::PageResponse>,
+}
 /// QueryAccountRequest is the request type for the Query/Account RPC method.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAccountRequest {
@@ -131,6 +152,23 @@ pub mod query_client {
         pub fn accept_gzip(mut self) -> Self {
             self.inner = self.inner.accept_gzip();
             self
+        }
+        #[doc = " Accounts returns all the existing accounts"]
+        #[doc = ""]
+        #[doc = " Since: cosmos-sdk 0.43"]
+        pub async fn accounts(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryAccountsRequest>,
+        ) -> Result<tonic::Response<super::QueryAccountsResponse>, tonic::Status> {
+            self.inner.ready().await.map_err(|e| {
+                tonic::Status::new(
+                    tonic::Code::Unknown,
+                    format!("Service was not ready: {}", e.into()),
+                )
+            })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/cosmos.auth.v1beta1.Query/Accounts");
+            self.inner.unary(request.into_request(), path, codec).await
         }
         #[doc = " Account returns account details based on address."]
         pub async fn account(

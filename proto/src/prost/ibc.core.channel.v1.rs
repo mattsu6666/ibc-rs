@@ -116,7 +116,7 @@ pub struct PacketState {
 /// conflicts with other protobuf message formats used for acknowledgements.
 /// The first byte of any message with this format will be the non-ASCII values
 /// `0xaa` (result) or `0xb2` (error). Implemented as defined by ICS:
-/// <https://github.com/cosmos/ics/tree/master/spec/ics-004-channel-and-packet-semantics#acknowledgement-envelope>
+/// <https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#acknowledgement-envelope>
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Acknowledgement {
     /// response contains either a result or an error and must be non-empty
@@ -211,7 +211,8 @@ pub struct MsgChannelOpenInit {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenInitResponse {}
 /// MsgChannelOpenInit defines a msg sent by a Relayer to try to open a channel
-/// on Chain B.
+/// on Chain B. The version field within the Channel field has been deprecated. Its
+/// value will be ignored by core IBC.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenTry {
     #[prost(string, tag = "1")]
@@ -220,6 +221,7 @@ pub struct MsgChannelOpenTry {
     /// the channel identifier of the previous channel in state INIT
     #[prost(string, tag = "2")]
     pub previous_channel_id: ::prost::alloc::string::String,
+    /// NOTE: the version field within the channel has been deprecated. Its value will be ignored by core IBC.
     #[prost(message, optional, tag = "3")]
     pub channel: ::core::option::Option<Channel>,
     #[prost(string, tag = "4")]
@@ -868,6 +870,9 @@ pub struct QueryPacketAcknowledgementsRequest {
     pub pagination: ::core::option::Option<
         super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
     >,
+    /// list of packet sequences
+    #[prost(uint64, repeated, tag = "4")]
+    pub packet_commitment_sequences: ::prost::alloc::vec::Vec<u64>,
 }
 /// QueryPacketAcknowledgemetsResponse is the request type for the
 /// Query/QueryPacketAcknowledgements RPC method
