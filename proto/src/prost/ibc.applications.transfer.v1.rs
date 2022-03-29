@@ -28,7 +28,7 @@ pub struct Params {
 /// MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
 /// ICS20 enabled chains. See ICS Spec here:
 /// <https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures>
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransfer {
     /// the port on which the packet will be sent
     #[prost(string, tag = "1")]
@@ -55,7 +55,7 @@ pub struct MsgTransfer {
     pub timeout_timestamp: u64,
 }
 /// MsgTransferResponse defines the Msg/Transfer response type.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransferResponse {}
 #[doc = r" Generated client implementations."]
 #[cfg(feature = "client")]
@@ -134,6 +134,7 @@ pub mod msg_client {
         }
     }
 }
+<<<<<<< HEAD
 /// GenesisState defines the ibc-transfer genesis state
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
@@ -143,10 +144,38 @@ pub struct GenesisState {
     pub denom_traces: ::prost::alloc::vec::Vec<DenomTrace>,
     #[prost(message, optional, tag = "3")]
     pub params: ::core::option::Option<Params>,
+=======
+/// DenomTrace contains the base denomination for ICS20 fungible tokens and the
+/// source tracing information path.
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct DenomTrace {
+    /// path defines the chain of port/channel identifiers used for tracing the
+    /// source of the fungible token.
+    #[prost(string, tag = "1")]
+    pub path: ::prost::alloc::string::String,
+    /// base denomination of the relayed fungible token.
+    #[prost(string, tag = "2")]
+    pub base_denom: ::prost::alloc::string::String,
+}
+/// Params defines the set of IBC transfer parameters.
+/// NOTE: To prevent a single token from being transferred, set the
+/// TransfersEnabled parameter to true and then set the bank module's SendEnabled
+/// parameter for the denomination to false.
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct Params {
+    /// send_enabled enables or disables all cross-chain token transfers from this
+    /// chain.
+    #[prost(bool, tag = "1")]
+    pub send_enabled: bool,
+    /// receive_enabled enables or disables all cross-chain token transfers to this
+    /// chain.
+    #[prost(bool, tag = "2")]
+    pub receive_enabled: bool,
+>>>>>>> origin/master
 }
 /// QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
 /// method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTraceRequest {
     /// hash (in hex format) of the denomination trace information.
     #[prost(string, tag = "1")]
@@ -154,7 +183,7 @@ pub struct QueryDenomTraceRequest {
 }
 /// QueryDenomTraceResponse is the response type for the Query/DenomTrace RPC
 /// method.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTraceResponse {
     /// denom_trace returns the requested denomination trace information.
     #[prost(message, optional, tag = "1")]
@@ -162,7 +191,7 @@ pub struct QueryDenomTraceResponse {
 }
 /// QueryConnectionsRequest is the request type for the Query/DenomTraces RPC
 /// method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTracesRequest {
     /// pagination defines an optional pagination for the request.
     #[prost(message, optional, tag = "1")]
@@ -172,7 +201,7 @@ pub struct QueryDenomTracesRequest {
 }
 /// QueryConnectionsResponse is the response type for the Query/DenomTraces RPC
 /// method.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTracesResponse {
     /// denom_traces returns all denominations trace information.
     #[prost(message, repeated, tag = "1")]
@@ -184,10 +213,10 @@ pub struct QueryDenomTracesResponse {
     >,
 }
 /// QueryParamsRequest is the request type for the Query/Params RPC method.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
 /// QueryParamsResponse is the response type for the Query/Params RPC method.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
     /// params defines the parameters of the module.
     #[prost(message, optional, tag = "1")]
@@ -195,7 +224,7 @@ pub struct QueryParamsResponse {
 }
 /// QueryDenomHashRequest is the request type for the Query/DenomHash RPC
 /// method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashRequest {
     /// The denomination trace `(\[port_id]/[channel_id])+/[denom\]`
     #[prost(string, tag = "1")]
@@ -203,7 +232,7 @@ pub struct QueryDenomHashRequest {
 }
 /// QueryDenomHashResponse is the response type for the Query/DenomHash RPC
 /// method.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashResponse {
     /// hash (in hex format) of the denomination trace information.
     #[prost(string, tag = "1")]
@@ -340,3 +369,16 @@ pub mod query_client {
         }
     }
 }
+<<<<<<< HEAD
+=======
+/// GenesisState defines the ibc-transfer genesis state
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
+pub struct GenesisState {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag = "2")]
+    pub denom_traces: ::prost::alloc::vec::Vec<DenomTrace>,
+    #[prost(message, optional, tag = "3")]
+    pub params: ::core::option::Option<Params>,
+}
+>>>>>>> origin/master
