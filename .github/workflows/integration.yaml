@@ -200,7 +200,7 @@ jobs:
           RUST_LOG: info
           RUST_BACKTRACE: 1
           NO_COLOR_LOG: 1
-          CHAIN_COMMAND_PATH: icad
+          CHAIN_COMMAND_PATH: simd
         run: |
           nix shell github:informalsystems/cosmos.nix#ibc-go-ics29-simapp -c cargo \
             test -p ibc-integration-test --features ics29-fee --no-fail-fast -- \
