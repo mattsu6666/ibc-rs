@@ -113,7 +113,7 @@ pub struct PacketState {
 /// PacketId is an identifer for a unique Packet
 /// Source chains refer to packets by source port/channel
 /// Destination chains refer to packets by destination port/channel
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct PacketId {
     /// channel port identifier
     #[prost(string, tag = "1")]
@@ -366,7 +366,10 @@ pub struct MsgRecvPacket {
 }
 /// MsgRecvPacketResponse defines the Msg/RecvPacket response type.
 #[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
-pub struct MsgRecvPacketResponse {}
+pub struct MsgRecvPacketResponse {
+    #[prost(enumeration = "ResponseResultType", tag = "1")]
+    pub result: i32,
+}
 /// MsgTimeout receives timed-out packet
 #[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct MsgTimeout {
@@ -383,7 +386,10 @@ pub struct MsgTimeout {
 }
 /// MsgTimeoutResponse defines the Msg/Timeout response type.
 #[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
-pub struct MsgTimeoutResponse {}
+pub struct MsgTimeoutResponse {
+    #[prost(enumeration = "ResponseResultType", tag = "1")]
+    pub result: i32,
+}
 /// MsgTimeoutOnClose timed-out packet upon counterparty channel closure.
 #[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct MsgTimeoutOnClose {
@@ -402,7 +408,10 @@ pub struct MsgTimeoutOnClose {
 }
 /// MsgTimeoutOnCloseResponse defines the Msg/TimeoutOnClose response type.
 #[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
-pub struct MsgTimeoutOnCloseResponse {}
+pub struct MsgTimeoutOnCloseResponse {
+    #[prost(enumeration = "ResponseResultType", tag = "1")]
+    pub result: i32,
+}
 /// MsgAcknowledgement receives incoming IBC acknowledgement
 #[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
 pub struct MsgAcknowledgement {
@@ -419,7 +428,33 @@ pub struct MsgAcknowledgement {
 }
 /// MsgAcknowledgementResponse defines the Msg/Acknowledgement response type.
 #[derive(::serde::Serialize, ::serde::Deserialize, Clone, PartialEq, ::prost::Message)]
-pub struct MsgAcknowledgementResponse {}
+pub struct MsgAcknowledgementResponse {
+    #[prost(enumeration = "ResponseResultType", tag = "1")]
+    pub result: i32,
+}
+/// ResponseResultType defines the possible outcomes of the execution of a message
+#[derive(
+    ::serde::Serialize,
+    ::serde::Deserialize,
+    Clone,
+    Copy,
+    Debug,
+    PartialEq,
+    Eq,
+    Hash,
+    PartialOrd,
+    Ord,
+    ::prost::Enumeration,
+)]
+#[repr(i32)]
+pub enum ResponseResultType {
+    /// Default zero value enumeration
+    Unspecified = 0,
+    /// The message did not call the IBC application callbacks (because, for example, the packet had already been relayed)
+    Noop = 1,
+    /// The message was executed successfully
+    Success = 2,
+}
 #[doc = r" Generated client implementations."]
 #[cfg(feature = "client")]
 pub mod msg_client {

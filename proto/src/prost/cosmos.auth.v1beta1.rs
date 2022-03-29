@@ -44,7 +44,7 @@ pub struct GenesisState {
     pub params: ::core::option::Option<Params>,
     /// accounts are the accounts present at genesis.
     #[prost(message, repeated, tag = "2")]
-    pub accounts: ::prost::alloc::vec::Vec<::prost_types::Any>,
+    pub accounts: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
 }
 /// QueryAccountsRequest is the request type for the Query/Accounts RPC method.
 ///
@@ -202,16 +202,3 @@ pub mod query_client {
         }
     }
 }
-<<<<<<< HEAD
-=======
-/// GenesisState defines the auth module's genesis state.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GenesisState {
-    /// params defines all the paramaters of the module.
-    #[prost(message, optional, tag = "1")]
-    pub params: ::core::option::Option<Params>,
-    /// accounts are the accounts present at genesis.
-    #[prost(message, repeated, tag = "2")]
-    pub accounts: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
-}
->>>>>>> origin/master
